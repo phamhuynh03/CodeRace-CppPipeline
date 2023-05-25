@@ -3,8 +3,8 @@
 * CI/CD pipeline allows faster development and deployment of software application.​
 * Given a standard CI/CD pipeline in DevOps including building and testing software application.​
 * Mentors shall give a C/C++ or Python program with some vulnerabilities.​
-* The contestants are required to​
-    * Investigate security tools to help the detection of vulnerabilities.​
+* The contestants are **required** to​
+    * Investigate security tools including static vulnerability scanning and fuzzing to help the detection of vulnerabilities.​
     * Extend the given pipeline and integrate security tools.​
     * Make the findings from security tools user-friendly.
 
@@ -18,6 +18,10 @@ you don't need to wait for the pipeline to test your tool or code since the pipe
 * Be able to fix the vulnerabilities.​
 * (Extra) Polish the presentation of the pipeline.
 
+## Submission
+* You can write a README.md in your branch to describe everything you do.
+* Or you can write it in Word.
+
 ## Mentor/advisor responsibilities
 * Should NOT
     * Tell them what tools to use for security scanning tools and fuzz testing.
@@ -27,5 +31,10 @@ you don't need to wait for the pipeline to test your tool or code since the pipe
     * Elaborate the errors/findings to the contestants.
     * Be a critical thinker, using your questions to guide them on choosing the right tool.
 * Must
-    * Support you on accessing the pipeline i.e. snapshot the image of the pipeline or log
+    * Support you on accessing the pipeline i.e. snapshot the image of the pipeline or log.
+
+## Let's start
+* Your C/C++ program shall be placed in src directory.
+* The pipeline shall be created once you open the Pull Request.
+* .pipelines/pr_develop.yaml contains stages in the pipeline.
 
