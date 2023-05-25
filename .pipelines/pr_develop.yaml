@@ -59,7 +59,7 @@ steps:
     fi
   displayName: 'Install cppcheck'
 
-- script: |
+- script: 
     cppcheck --version
     cppcheck --enable=all ./src/track1/*.*
     cppcheck --enable=all ./src/track2/*.*
