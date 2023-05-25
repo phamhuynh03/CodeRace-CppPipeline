@@ -30,15 +30,23 @@ steps:
   displayName: 'Run a multi-line script'
 
 - script: |
-    if ! command -v gcc &> /dev/null
-    then
-      echo "GCC not found, installing..."
-      sudo apt update
-      sudo apt install -y gcc
-    else
-      echo "GCC already installed"
+  if ! command -v gcc &> /dev/null; then
+    echo "GCC hasn't installed."
+    if [ -x "$(command -v apt)" ]; then
+          echo "Installing GCC with apt..."
+          sudo apt update
+          sudo apt install -y gcc
+      elif [ -x "$(command -v yum)" ]; then
+          echo "Installing gcc with Yum..."
+          sudo yum update
+          sudo yum install -y gcc
+      else
+          echo "Cannot file gcc."
+          exit 1
+      fi
     fi
-  displayName: 'Install GCC'
+  echo "GCC has been installed."
+  displayName:'Install gcc'
 
 - script: |
     if ! command -v cppcheck &> /dev/null
