@@ -29,18 +29,21 @@ extern int mirro_regBufferTx[256];
 #define someTp_FMT_03   0b10
 #define someTp_FMT_04   0b11
 
-#define CB_FUNC(rxHandling, txHandling, errorHandling){\
+#define CB_FUNC \
+{ \
     rxHandling, \
     txHandling, \
     errorHandling \
 }
-
-#define RLIN_Rx3_REGISTERCONFIG(baseAddr, regBufferRx, regBufferTx, dataLen, regStatus){\
+ 
+#define RLIN_Rx3_REGISTERCONFIG \
+{ \
     baseAddr,\
     regBufferRx,\
     regBufferTx,\
     dataLen,\
     regStatus,\
+    CB_FUNC \
 }
 
 extern void checkRegisterErr (void);

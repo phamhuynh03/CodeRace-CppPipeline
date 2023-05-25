@@ -20,35 +20,30 @@ int mirro_regBufferTx[256];
 
 void configureRegister(void)
 {
-    LIN_Rx3.baseAddr = baseAddr;
-    LIN_Rx3.bufferRx = regBufferRx;
-    LIN_Rx3.bufferTx = regBufferTx;
-    LIN_Rx3.length = dataLen;
-    LIN_Rx3.registerStatus = regStatus;
-    LIN_Rx3.CbFunc.funcRxCb = rxHandling;
-    LIN_Rx3.CbFunc.funcTxCb = txHandling;
-    LIN_Rx3.CbFunc.funcErrHandlercb = errorHandling;
+
+    LIN_Rx3 = (RLIN_Register)RLIN_Rx3_REGISTERCONFIG;
     return;
 }
 
 void checkRegisterErr(void)
 {
-    
+
     return;
 }
 
 void receiveDataHandling(void)
 {
     int l_fmt__u8;
-    int idx;
     l_fmt__u8 = (int)(mirro_regBufferRx[0] >> 6);
     switch (l_fmt__u8)
     {
     case someTp_FMT_01:
     case someTp_FMT_02:
     {
+
         mirro_regBufferTx[0] = (int)(l_fmt__u8 << 6);
         mirro_regBufferTx[1] = dataLen;
+        int idx;
         for (idx = 2; idx < dataLen; idx++)
         {
             /* code */
@@ -68,18 +63,20 @@ void receiveDataHandling(void)
 }
 void errorHandling(void)
 {
-    int idx;
+
     if (LIN_Rx3.registerStatus & TX_ERROR)
     {
+        int idx;
         /* clear TX buffer */
         for (idx = 0; idx < 255; idx++)
         {
-            LIN_Rx3.bufferRx[idx] = 0x00;
+            LIN_Rx3.bufferTx[idx] = 0x00;
             mirro_regBufferTx[idx] = 0x00;
         }
     }
-    else if (LIN_Rx3.registerStatus & RX_ERROR)
+    if (LIN_Rx3.registerStatus & RX_ERROR)
     {
+        int idx;
         /* clear RX buffer */
         for (idx = 0; idx < 255; idx++)
         {
@@ -104,13 +101,13 @@ void rxHandling(void)
 {
     int idx = 0;
 
-    idx = LIN_Rx3.length;
+    idx = LIN_Rx3.length - 1;
     /* copy data to the mirror*/
     do
     {
         mirro_regBufferRx[idx] = LIN_Rx3.bufferRx[idx];
         idx--;
-    } while (idx > 0);
+    } while (idx >= 0);
     return;
 }
 
@@ -118,13 +115,14 @@ void txHandling(void)
 {
     int idx = 0;
 
-    idx = LIN_Rx3.length;
+    idx = LIN_Rx3.length - 1;
     /* copy data to the mirror*/
     do
     {
-        LIN_Rx3.bufferRx[idx] = mirro_regBufferTx[idx];
+      //  LIN_Rx3.bufferTx[idx] = mirro_regBufferTx[idx];
+        mirro_regBufferTx[idx] = LIN_Rx3.bufferTx[idx];
         idx--;
-    } while (idx > 0);
+    } while (idx >= 0);
     return;
 }
 
@@ -133,7 +131,7 @@ void someTp(void)
     int idx = 0;
     int calCS = 0;
     /*Calculate checksum*/
-    for (idx = 0; idx < (LIN_Rx3.length - 1); idx++)
+    for (idx = 0; idx < (LIN_Rx3.length); idx++)
     {
         calCS = calCS + LIN_Rx3.bufferRx[idx];
     }
