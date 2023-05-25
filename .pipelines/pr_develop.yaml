@@ -57,7 +57,8 @@ steps:
     cd src/track1
     # Making track1_error.log
     > track1_error.log
-
+    # Num for error count
+    #error_number=1
     # Search all .c files
     for file in *.c; do
         echo "Errors in file: $file" >> track1_error.log
@@ -98,5 +99,5 @@ steps:
   displayName: 'Run GCC on track 2'
   
 - script: |
-    cd ttttt
+    cd src
   displayName: 'Navigate randomly'  
