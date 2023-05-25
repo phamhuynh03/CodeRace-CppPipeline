@@ -8,7 +8,7 @@ int calculate_fingerprint(unsigned long uid, unsigned long counter, const char *
 
 int main(void)
 {
-    char* buffer = allocate_buffer(100);
+    char* buffer = (char*)allocate_buffer(100);
 
     printf("OK: allocate_buffer\r\n");
     const char* text = "Hello world";
