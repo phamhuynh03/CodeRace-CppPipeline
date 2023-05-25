@@ -131,7 +131,7 @@ steps:
     log_file="fuzz_log.txt"
     > "$log_file"
     
-    # Ch?y AFL
+    # Run AFL
     afl-fuzz -i "$seed_dir" -o "$output_dir" -- "$source_dir" 2>&1 | tee -a "$log_file"
     
     # In ra thông báo hoàn thành
