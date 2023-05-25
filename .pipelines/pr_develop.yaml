@@ -117,7 +117,7 @@ steps:
     fi
   displayName: 'Run GCC on track 2'
 
-#Run AFL
+#Run AFL on track1
 - script: |
     #dir for source file and seed
     source_dir="src/track1"
@@ -128,13 +128,35 @@ steps:
     mkdir -p "$output_dir"
     
     #log
-    log_file="fuzz_log.txt"
+    log_file="Track1_fuzz_log.txt"
     > "$log_file"
     
     # Run AFL
     afl-fuzz -i "$seed_dir" -o "$output_dir" -- "$source_dir" 2>&1 | tee -a "$log_file"
     
-    # In ra thông báo hoàn thành
+    # Print the result
     echo "Fuzzing complete, see more on $log_file"
     cat "$log_file"
   displayName: 'Run AFL on track 1'
+  
+#Run AFL on track2
+- script: |
+    #dir for source file and seed
+    source_dir="src/track2"
+    seed_dir="seed"
+    
+    #dir for output
+    output_dir="fuzz_output"
+    mkdir -p "$output_dir"
+    
+    #log
+    log_file="Track2_fuzz_log.txt"
+    > "$log_file"
+    
+    # Run AFL
+    afl-fuzz -i "$seed_dir" -o "$output_dir" -- "$source_dir" 2>&1 | tee -a "$log_file"
+    
+    # Print the result
+    echo "Fuzzing complete, see more on $log_file"
+    cat "$log_file"
+  displayName: 'Run AFL on track 2'
