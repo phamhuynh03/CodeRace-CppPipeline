@@ -22,12 +22,12 @@ steps:
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
 
-- script: |
+- script:
     echo Add other tasks to build, test, and deploy your project.
     echo Seehttps://aka.ms/yaml
-displayName: 'Run a multi-line script'
+  displayName: 'Run a multi-line script'
 
-- script: |
+- script:
     if ! command -v cppcheck &> /dev/null
     then
         echo "cppcheck not found, installing..."
@@ -38,7 +38,7 @@ displayName: 'Run a multi-line script'
     fi
   displayName: 'Install cppcheck'
 
-- script: |
+- script:
     cppcheck --version
     cppcheck --enable=all ../src/track1/*.* ../src/track2/*.*
   displayName: 'Run cppcheck'
