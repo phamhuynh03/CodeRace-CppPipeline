@@ -43,6 +43,18 @@ steps:
       echo "cppcheck already installed"
     fi
   displayName: 'Install cppcheck'
+  
+#Installing AFL
+- script: |
+    if ! command -v afl-fuzz &> /dev/null
+    then
+      echo "AFL not found, installing..."
+      sudo apt-get update
+      sudo apt-get install -y afl
+    else
+      echo "AFL already installed"
+    fi
+  displayName: 'Install American fuzzing loop'
 
 #Run cppcheck
 - script: |
