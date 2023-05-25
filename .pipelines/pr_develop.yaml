@@ -77,7 +77,7 @@ steps:
 #Run GCC for tract 2
 - script: |
     echo "Running gcc on track 2...."
-    cd ../track2
+    cd src/track2
     # Making track2_error.log
     > track2_error.log
 
