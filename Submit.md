@@ -1,6 +1,6 @@
 # Round 2 of EldersTHSPCanTho team - submission
 
-## First task:
+## 1) First task:
 
 At the beginning, when starting the job, our team wanted to manually identify the previous errors in the source code. This was done in order to gain a better understanding of the task. Below are some of the debugging findings we discovered in track 1.
 
@@ -25,7 +25,7 @@ calCS = calCS + LIN_Rx3.regBufferRx[idx]; ➡        calCS = calCS + LIN_Rx3.buf
 ### line 135
 if (calCS != LIN_Rx3.regBufferRx[idx]) ➡     if (calCS != LIN_Rx3.bufferRx[idx])
 
-## Second task: (Inside pr_develop.yaml)
+## 2) Second task: (Inside pr_develop.yaml)
 
 Based on that, we found some basic syntax errors and issues with calling members of a struct. Therefore, we will set up some tools for compiling and generating error messages on the pipeline using GCC.
 
