@@ -30,11 +30,11 @@ steps:
 - script:
     if ! command -v cppcheck &> /dev/null
     then
-        echo "cppcheck not found, installing..."
-        sudo apt-get update
-        sudo apt-get install -y cppcheck
+      echo "cppcheck not found, installing..."
+      sudo apt-get update
+      sudo apt-get install -y cppcheck
     else
-        echo "cppcheck already installed"
+      echo "cppcheck already installed"
     fi
   displayName: 'Install cppcheck'
 
