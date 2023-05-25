@@ -27,6 +27,7 @@ typedef struct
  */
 int get_array_element(const unsigned long array[], int array_length, int index, unsigned long* element)
 {
+    /// >= instead of using >
     if (index > array_length)
     {
         printf("ERROR: Out of bound access");
@@ -113,15 +114,15 @@ int deallocate_buffer(void * buffer)
  */
 int calculate_fingerprint(unsigned long uid, unsigned long counter, const char *text, unsigned int* output)
 {
-    char* workspace = (char*)malloc(sizeof(uid) + sizeof(counter) + strlen(text) + 1); // plus 1 for null character
-
-    if (text == (void*)0)
+    if (text == NULL)
     {
         return -1;
     }
+    char* workspace = (char*)malloc(sizeof(uid) + sizeof(counter) + strlen(text) + 1); // plus 1 for null character
 
     if (strlen(text) < MIN_LENGTH_BYTES)
     {
+        free(workspace);
         return -2;
     }
 
