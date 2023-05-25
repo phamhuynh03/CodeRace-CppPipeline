@@ -18,28 +18,27 @@ pr:
 pool:
   vmImage: ubuntu-latest
 
-stages:
-- stage: Check_cppcheck
-  jobs:
-  - job: CheckStage
-    steps:
-    - script: |
-        if ! command -v cppcheck &> /dev/null
-        then
-          echo "ko tim thay cppcheck..."
-          echo "cai dat cppcheck..."
-          sudo apt-get update
-          sudo apt-get install -y cppcheck
-        else
-          echo "cppcheck da cai dat"
-        fi
-      displayName: 'Install cppcheck'
+steps:
+- script: echo Hello, world!
+  displayName: 'Run a one-line script'
 
-- stage: Run_cppcheck
-  jobs:
-  - job: RunStage
-    steps:
-    - script |
+- script: |
+    echo Add other tasks to build, test, and deploy your project.
+    echo Seehttps://aka.ms/yaml
+displayName: 'Run a multi-line script'
+
+- script: |
+    if ! command -v cppcheck &> /dev/null
+    then
+        echo "cppcheck not found, installing..."
+        sudo apt-get update
+        sudo apt-get install -y cppcheck
+    else
+        echo "cppcheck already installed"
+    fi
+  displayName: 'Install cppcheck'
+
+- script: |
     cppcheck --version
     cppcheck --enable=all ../src/track1/*.* ../src/track2/*.*
   displayName: 'Run cppcheck'
