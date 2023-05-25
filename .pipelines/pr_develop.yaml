@@ -58,8 +58,9 @@ steps:
     cppcheck --enable=all ./src/track2/*.*
   displayName: 'Run cppcheck'
 
+#Run GCC for tract 1
 - script: |
-    echo "Running gcc on tract 1"
+    echo "Running gcc on tract 1...."
     cd src/track1
     # Making track1_error.log
     > track1_error.log
@@ -79,3 +80,26 @@ steps:
         echo "There's no error in track 1"
     fi
   displayName: 'Run GCC on tract 1'
+  
+#Run GCC for tract 2
+- script: |
+    echo "Running gcc on tract 2...."
+    cd ../track2
+    # Making track2_error.log
+    > track2_error.log
+
+    # Search all .c files
+    for file in *.c; do
+        echo "Errors in file: $file" >> track2_error.log
+        gcc -fsyntax-only "$file" 2>> track2_error.log
+        echo >> track2_error.log
+    done
+    
+    #Print the result
+     if [ -s track2_error.log ]; then
+        echo "Bugs found in track2, check track2_error.log for detail:"
+        cat track2_error.log
+    else
+        echo "There's no error in track 2"
+    fi
+  displayName: 'Run GCC on tract 2'
