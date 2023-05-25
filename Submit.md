@@ -1,7 +1,8 @@
-# Welcome to BGSV Code Race 2023 - Round 2 of EldersTHSPCanTho team
+# Round 2 of EldersTHSPCanTho team - submission
 
-# Our first commit of fixing bugs on track 1
-## We have fixed some bug on module: register.c
+## 1) First task:
+
+At the beginning, when starting the job, our team wanted to manually identify the previous errors in the source code. This was done in order to gain a better understanding of the task. Below are some of the debugging findings we discovered in track 1.
 
 ### line 55
 case default: ➡ default:
@@ -23,3 +24,26 @@ for (idx = 0; i < (LIN_Rx3.length - 1); i++) ➡    for (idx = 0; idx < (LIN_Rx3
 calCS = calCS + LIN_Rx3.regBufferRx[idx]; ➡        calCS = calCS + LIN_Rx3.bufferRx[idx];
 ### line 135
 if (calCS != LIN_Rx3.regBufferRx[idx]) ➡     if (calCS != LIN_Rx3.bufferRx[idx])
+
+## 2) Second task: (Inside pr_develop.yaml)
+
+Based on that, we found some basic syntax errors and issues with calling members of a struct. Therefore, we will set up some tools for compiling and generating error messages on the pipeline using GCC.
+
+### Installing GCC 
+![image](https://github.com/vietha712/CodeRace-CppPipeline/assets/113485058/d6a44421-eb42-4786-89ea-cfc6ef30d212)
+  
+### Installing cppcheck
+We also conducted further research and discovered the cppcheck tool, which has good capabilities for checking system security errors.
+![image](https://github.com/vietha712/CodeRace-CppPipeline/assets/113485058/3147a511-0664-4e04-8073-cd9807b37519)
+
+### Run cppcheck
+After that we run cpp check on all files in track1 and track2
+
+![image](https://github.com/vietha712/CodeRace-CppPipeline/assets/113485058/82eb5499-a3ec-4f40-9392-a8e054393144)
+
+
+
+  
+
+
+
