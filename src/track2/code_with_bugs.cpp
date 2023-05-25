@@ -3,7 +3,7 @@
 #include <time.h>
 #include "crc32.h"
 #include <string>
-
+#include <string.h>
 #define TIMEOUT 600UL
 #define MIN_LENGTH_BYTES 6UL
 
@@ -148,13 +148,14 @@ void exploreMe(int a, int b, std::string c)
             if (b - a < 100000)
             {
                 // Trigger the undefined behavior sanitizer
-                int n = 23;
+                long long n = 23;
                 n <<= 32;
                 if (c == "FUZZING")
                 {
                     // Trigger a heap buffer overflow
                     char *s = (char *)malloc(1);
                     strcpy(s, "too long");
+                    free(s);
                 }
             }
         }
