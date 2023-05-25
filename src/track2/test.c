@@ -1,17 +1,24 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include "code_with_bugs.c"
+#include "crc32.c"
+#include "crc32.h"
+#include "main.c"
 
 #define ARRAY_LENGTH 1000U
 #define DEFAULT_VALUE 0xAAU
 #define HEADER_SIZE sizeof(int)
 #define GET_DATA_BUFFER(_buffer) (&_buffer[HEADER_SIZE])
 
+
 int get_array_element(const char *array, int array_length, int index)
 {
     if (index > array_length)
     {
-        return 0;
+        // return ngu vcl
         printf("Out of bound access");
+        return 0;
     }
 
     return array[index];
@@ -58,7 +65,7 @@ void check_overflow(void)
     volatile int important_data = 0;
     char user_input[10];
 
-    gets(user_input);
+    gets_s(user_input);
 
     if (important_data != 0)
     {
@@ -79,29 +86,28 @@ void access_array(void)
 }
 
 // just a function with multiple paths that can be discoverd by a fuzzer
-void exploreMe(int a, int b, string c)
-{
-    printf("a: %d; b: %d; c: %s\n", a, b, c.c_str());
+// void exploreMe(int a, int b, string c)
+// {
+//     printf("a: %d; b: %d; c: %s\n", a, b, c.c_str());
 
-    if (a >= 20000)
-    {
-        if (b >= 2000000)
-        {
-            if (b - a < 100000)
-            {
-                // Trigger the undefined behavior sanitizer
-                int n = 23;
-                n <<= 32;
-                if (c == "FUZZING")
-                {
-                    // Trigger a heap buffer overflow
-                    char *s = (char *)malloc(1);
-                    strcpy(s, "too long");
-                }
-            }
-        }
-    }
-}
+//     if (a >= 20000)
+//     {
+//         if (b >= 2000000)
+//         {
+//             if (b - a < 100000)
+//             {
+//                 // Trigger the undefined behavior sanitizer
+//                 if (strcmp(c,"FUZZING"))
+//                 {
+//                     // Trigger a heap buffer overflow
+//                     char *s = (char *)malloc(1);
+//                     strcpy(s, "too long");
+//                     free(s); // free mem
+//                 }
+//             }
+//         }
+//     }
+// }
 
 int main(void)
 {
