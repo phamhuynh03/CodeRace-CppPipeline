@@ -24,9 +24,22 @@ steps:
 
 - script: |
     echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+    echo Seehttps://aka.ms/yaml
+displayName: 'Run a multi-line script'
 
 - script: |
-    cppcheck --enable=all ../src/track1/*.c ../src/track2/*.h
-  displayName: 'Run Cppcheck'
+    if ! command -v cppcheck &> /dev/null
+    then
+        echo "ko tim thay cppcheck..."
+        echo "cai dat cppcheck..."
+        sudo apt-get update
+        sudo apt-get install -y cppcheck
+    else
+        echo "cppcheck da cai dat"
+    fi
+  displayName: 'Install cppcheck'
+
+- script: |
+    cppcheck --version
+    cppcheck --enable=all ../src/track1/*.* ../src/track2/*.*
+  displayName: 'Run cppcheck'
