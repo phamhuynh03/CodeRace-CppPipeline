@@ -27,7 +27,7 @@ void configureRegister(void)
 
 void checkRegisterErr(void)
 {
-
+    errorHandling();
     return;
 }
 
@@ -104,7 +104,6 @@ void resetHandling(void)
     {
         LIN_Rx3.registerStatus = 0x00;
     }
-    errorHandling();
     return;
 }
 

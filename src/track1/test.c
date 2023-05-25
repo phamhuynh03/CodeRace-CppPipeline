@@ -90,7 +90,7 @@ char *allocate_buffer(int size)
  * @param[in]   size    Size of to be allocated buffer in bytes
  * @return Pointer to allocated buffer
  */
-void deallocate_buffer(char *buffer)
+char* deallocate_buffer(char *buffer)
 {
 
 	/* Always clear allocated buffer to prevent sensitive data leakage */
@@ -101,6 +101,7 @@ void deallocate_buffer(char *buffer)
 		buffer[i] = DEFAULT_VALUE;
 	}
 	free(buffer - HEADER_SIZE);
+	return allocate_buffer(buffer_size);
 }
 
 int main(void)
