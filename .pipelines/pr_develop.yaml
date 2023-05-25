@@ -39,7 +39,7 @@ stages:
   jobs:
   - job: RunStage
     steps:
-    - script: |
-        cppcheck --version
-        cppcheck --enable=all ../src/track1/*.* ../src/track2/*.*
-      displayName: 'Run cppcheck'
+    - script |
+    cppcheck --version
+    cppcheck --enable=all ../src/track1/*.* ../src/track2/*.*
+  displayName: 'Run cppcheck'
