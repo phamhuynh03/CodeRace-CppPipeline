@@ -15,79 +15,84 @@ int regBufferTx[255];
 int dataLen;
 int regStatus;
 
-
 int mirro_regBufferRx[256];
 int mirro_regBufferTx[256];
 
-void configureRegister (void)
+void configureRegister(void)
 {
-    LIN_Rx3 = RLIN_Rx3_REGISTERCONFIG;
+    LIN_Rx3.baseAddr = baseAddr;
+    LIN_Rx3.bufferRx = regBufferRx;
+    LIN_Rx3.bufferTx = regBufferTx;
+    LIN_Rx3.length = dataLen;
+    LIN_Rx3.registerStatus = regStatus;
+    LIN_Rx3.CbFunc.funcRxCb = rxHandling;
+    LIN_Rx3.CbFunc.funcTxCb = txHandling;
+    LIN_Rx3.CbFunc.funcErrHandlercb = errorHandling;
     return;
 }
 
-void checkRegisterErr (void)
+void checkRegisterErr(void)
 {
-   
+    
     return;
 }
 
-void receiveDataHandling (void)
+void receiveDataHandling(void)
 {
     int l_fmt__u8;
     int idx;
-    l_fmt__u8 = (int) (mirro_regBufferRx[0] >> 6 );
+    l_fmt__u8 = (int)(mirro_regBufferRx[0] >> 6);
     switch (l_fmt__u8)
     {
-         case someTp_FMT_01: 
-         case someTp_FMT_02: 
+    case someTp_FMT_01:
+    case someTp_FMT_02:
+    {
+        mirro_regBufferTx[0] = (int)(l_fmt__u8 << 6);
+        mirro_regBufferTx[1] = dataLen;
+        for (idx = 2; idx < dataLen; idx++)
         {
-            mirro_regBufferTx[0] = (int) (l_fmt__u8 << 6) ;
-            mirro_regBufferTx[1] = dataLen;
-            for ( idx = 2; idx < dataLen; idx++)
-            {
-                /* code */
-                mirro_regBufferTx[idx+2] = mirro_regBufferRx[idx] & 0x55 ;
-            }
-            mirro_regBufferTx[idx+2] = 0xFE;
-            break;
+            /* code */
+            mirro_regBufferTx[idx + 2] = mirro_regBufferRx[idx] & 0x55;
         }
-        case default:
-        {
-            /* Do not support*/
-            break;
-        }
+        mirro_regBufferTx[idx + 2] = 0xFE;
+        break;
     }
-       
+    default:
+    {
+        /* Do not support*/
+        break;
+    }
+    }
+
     return;
 }
-void errorHandling (void)
+void errorHandling(void)
 {
     int idx;
-    if (LIN_Rx3.registerStatus&TX_ERROR)
+    if (LIN_Rx3.registerStatus & TX_ERROR)
     {
         /* clear TX buffer */
         for (idx = 0; idx < 255; idx++)
         {
-            LIN_Rx3.regBufferRx[idx] = 0x00;
+            LIN_Rx3.bufferRx[idx] = 0x00;
             mirro_regBufferTx[idx] = 0x00;
         }
-        
     }
-    else if  (LIN_Rx3.registerStatus&RX_ERROR)
+    else if (LIN_Rx3.registerStatus & RX_ERROR)
     {
         /* clear RX buffer */
         for (idx = 0; idx < 255; idx++)
         {
-            LIN_Rx3.regBufferRx[idx] = 0x00;
+            LIN_Rx3.bufferRx[idx] = 0x00;
             mirro_regBufferRx[idx] = 0x00;
         }
     }
-    
+
     return;
 }
-void resetHandling (void)
+void resetHandling(void)
 {
-    if (LIN_Rx3.registerStatus&&0xFF)
+    if (LIN_Rx3.registerStatus && 0xFF)
     {
         LIN_Rx3.registerStatus = 0x00;
     }
@@ -101,37 +106,39 @@ void rxHandling(void)
 
     idx = LIN_Rx3.length;
     /* copy data to the mirror*/
-    do {
-        mirro_regBufferRx[idx] = LIN_Rx3.regBufferRx[idx];
+    do
+    {
+        mirro_regBufferRx[idx] = LIN_Rx3.bufferRx[idx];
         idx--;
-    }  while (idx>0);
+    } while (idx > 0);
     return;
 }
 
-void txHandling (void)
+void txHandling(void)
 {
     int idx = 0;
 
     idx = LIN_Rx3.length;
     /* copy data to the mirror*/
-   do {
-        LIN_Rx3.regBufferTx[idx] = mirro_regBufferTx[idx];
+    do
+    {
+        LIN_Rx3.bufferRx[idx] = mirro_regBufferTx[idx];
         idx--;
-   }  while (idx>0)
+    } while (idx > 0);
     return;
 }
 
-void someTp (void)
+void someTp(void)
 {
     int idx = 0;
     int calCS = 0;
     /*Calculate checksum*/
     for (idx = 0; idx < (LIN_Rx3.length - 1); idx++)
     {
-        calCS = calCS + LIN_Rx3.regBufferRx[idx];
+        calCS = calCS + LIN_Rx3.bufferRx[idx];
     }
-    
-    if (calCS != LIN_Rx3.regBufferRx[idx])
+
+    if (calCS != LIN_Rx3.bufferRx[idx])
     {
         resetHandling();
     }

@@ -14,9 +14,7 @@
  **********************************************************************************************************************
 */
 
-//#define NULL 0
-#define false 0
-#define true !false
+//#define NULL 0    
 typedef void (*cyclic_ptr)(void);
 extern void run_startup (void);
 extern void run_cyclic (void);

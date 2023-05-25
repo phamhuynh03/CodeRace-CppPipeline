@@ -4,7 +4,7 @@
 #include "main.h"
 #include "resetRegister.h"
 #include "registerMonitor.h"
-
+#include "register.c"
 
 static const cyclic_ptr c_InitJob[] =
 {
@@ -72,10 +72,8 @@ char * allocate_buffer(int size)
 {
     char* buffer = (char *) malloc(size + HEADER_SIZE);
     unsigned char i;
-
-    int * buffer_size = (int *)buffer;
-    *buffer_size = size;
-    for (i = HEADER_SIZE; i < size + HEADER_SIZE; i++)
+	int _size = sizeof(buffer)/sizeof(char);
+    for (i = HEADER_SIZE; i < _size; i++)
     {
         buffer[(unsigned int)i] = DEFAULT_VALUE;
     }
@@ -111,7 +109,7 @@ int main(void)
 	run_startup();
 
 	/* running cyclic task*/
-	while (true)
+	while (0)
 	{
 		run_cyclic();
 	}
