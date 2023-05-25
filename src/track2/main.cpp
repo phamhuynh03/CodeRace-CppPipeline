@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <string.h>
+#include "code_with_bugs.cpp"
 
 int get_array_element(const unsigned long array[], int array_length, int index, unsigned long* element);
-void * allocate_buffer(unsigned long size);
+char * allocate_buffer(unsigned long size);
 int deallocate_buffer(void * buffer);
 int calculate_fingerprint(unsigned long uid, unsigned long counter, const char *text, unsigned int* output);
 

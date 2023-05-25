@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "crc32.h"
-#include <string.h>
+#include <string>
 
 #define TIMEOUT 600UL
 #define MIN_LENGTH_BYTES 6UL
@@ -28,7 +28,7 @@ typedef struct
 int get_array_element(const unsigned long array[], int array_length, int index, unsigned long* element)
 {
     /// >= instead of using >
-    if (index > array_length)
+    if (index >= array_length)
     {
         printf("ERROR: Out of bound access");
         return -1;
@@ -136,4 +136,27 @@ int calculate_fingerprint(unsigned long uid, unsigned long counter, const char *
     free(workspace);
 
     return 0;
+}
+void exploreMe(int a, int b, std::string c)
+{
+    printf("a: %d; b: %d; c: %s\n", a, b, c.c_str());
+
+    if (a >= 20000)
+    {
+        if (b >= 2000000)
+        {
+            if (b - a < 100000)
+            {
+                // Trigger the undefined behavior sanitizer
+                int n = 23;
+                n <<= 32;
+                if (c == "FUZZING")
+                {
+                    // Trigger a heap buffer overflow
+                    char *s = (char *)malloc(1);
+                    strcpy(s, "too long");
+                }
+            }
+        }
+    }
 }
