@@ -60,7 +60,7 @@ steps:
 
 - script: |
     echo "Running gcc"
-    cd ./src/track1/test.c
+    cd src/track1/test.c
     gcc -v
     gcc -o test test.c
       
