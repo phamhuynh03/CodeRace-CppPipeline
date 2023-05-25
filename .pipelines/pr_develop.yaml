@@ -61,6 +61,12 @@ steps:
 - script: |
     echo "Running gcc"
     cd src/track1
-    #gcc -o test test.c
+    gcc -o test test.c 2> error.log
+
+    if [ -s error.log ]; then
+        echo "Bugs found, check error.log for detail"
+    else
+        echo "There's no error"
+    fi
       
   displayName: 'Run GCC'
