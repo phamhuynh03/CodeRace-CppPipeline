@@ -9,11 +9,11 @@
 #include "registerMonitor.h"
 
 static RLIN_Register LIN_Rx3;
-int baseAddr;
+int baseAddr = 0;
 int regBufferRx[255];
 int regBufferTx[255];
-int dataLen;
-int regStatus;
+int dataLen = 0;
+int regStatus = 0;
 
 int mirro_regBufferRx[256];
 int mirro_regBufferTx[256];
@@ -130,7 +130,7 @@ void txHandling(void)
     /* copy data to the mirror*/
     do
     {
-      //  LIN_Rx3.bufferTx[idx] = mirro_regBufferTx[idx];
+        //  LIN_Rx3.bufferTx[idx] = mirro_regBufferTx[idx];
         mirro_regBufferTx[idx] = LIN_Rx3.bufferTx[idx];
         idx--;
     } while (idx >= 0);

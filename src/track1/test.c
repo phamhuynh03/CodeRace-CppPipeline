@@ -106,7 +106,6 @@ void deallocate_buffer(char *buffer)
 int main(void)
 {
 	char *array = allocate_buffer(ARRAY_LENGTH);
-	printArray(array);
 	int result = get_array_element(array, ARRAY_LENGTH, ARRAY_LENGTH);
 	deallocate_buffer(array);
 	/* running startup task*/
