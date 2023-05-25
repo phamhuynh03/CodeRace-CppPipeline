@@ -1,0 +1,11 @@
+track1/register.c:37:9: style: The scope of the variable 'idx' can be reduced. [variableScope]
+    int idx;
+        ^
+track1/test.c:95:32: error: Dereferencing 'buffer' after it is deallocated / released [deallocuse]
+    int buffer_size = *((int *)buffer);
+                               ^
+track1/test.c:61:9: style: Statements following return, break, continue, goto or throw will never be executed. [unreachableCode]
+        printf("Out of bound access");
+        ^
+nofile:0:0: information: Cppcheck cannot find all the include files (use --check-config for details) [missingIncludeSystem]
+

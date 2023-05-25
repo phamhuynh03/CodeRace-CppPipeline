@@ -1,0 +1,56 @@
+track2/code_with_bugs.c:120:9: error: Memory leak: workspace [memleak]
+        return -1;
+        ^
+track2/code_with_bugs.c:125:9: error: Memory leak: workspace [memleak]
+        return -2;
+        ^
+track2/code_with_bugs.c:116:76: warning: Either the condition 'text==(void*)0' is redundant or there is possible null pointer dereference: text. [nullPointerRedundantCheck]
+    char* workspace = (char*)malloc(sizeof(uid) + sizeof(counter) + strlen(text) + 1); // plus 1 for null character
+                                                                           ^
+track2/code_with_bugs.c:118:14: note: Assuming that condition 'text==(void*)0' is not redundant
+    if (text == (void*)0)
+             ^
+track2/code_with_bugs.c:116:76: note: Null pointer dereference
+    char* workspace = (char*)malloc(sizeof(uid) + sizeof(counter) + strlen(text) + 1); // plus 1 for null character
+                                                                           ^
+track2/crc32.c:3:17: style: The scope of the variable 'byte' can be reduced. [variableScope]
+   unsigned int byte, crc, mask;
+                ^
+track2/test.c:61:5: warning: Obsolete function 'gets' called. It is recommended to use 'fgets' or 'gets_s' instead. [getsCalled]
+    gets(user_input);
+    ^
+track2/test.c:63:24: style: Condition 'important_data!=0' is always false [knownConditionTrueFalse]
+    if (important_data != 0)
+                       ^
+track2/test.c:58:35: note: Assignment 'important_data=0', assigned value is 0
+    volatile int important_data = 0;
+                                  ^
+track2/test.c:63:24: note: Condition 'important_data!=0' is always false
+    if (important_data != 0)
+                       ^
+track2/test.c:48:32: error: Dereferencing 'buffer' after it is deallocated / released [deallocuse]
+    int buffer_size = *((int *)buffer);
+                               ^
+track2/test.c:104:1: error: Memory leak: s [memleak]
+}
+^
+track2/test.c:14:9: style: Statements following return, break, continue, goto or throw will never be executed. [unreachableCode]
+        printf("Out of bound access");
+        ^
+track2/test.c:95:23: warning: String literal compared with variable 'c'. Did you intend to use strcmp() instead? [literalWithCharPtrCompare]
+                if (c == "FUZZING")
+                      ^
+track2/test.c:94:19: error: Shifting 32-bit value by 32 bits is undefined behaviour [shiftTooManyBits]
+                n <<= 32;
+                  ^
+track2/test.c:93:23: style: Variable 'n' is assigned a value that is never used. [unreadVariable]
+                int n = 23;
+                      ^
+track2/test.c:94:19: style: Variable 'n' is assigned a value that is never used. [unreadVariable]
+                n <<= 32;
+                  ^
+track2/test.c:82:0: style: The function 'exploreMe' is never used. [unusedFunction]
+
+^
+nofile:0:0: information: Cppcheck cannot find all the include files (use --check-config for details) [missingIncludeSystem]
+

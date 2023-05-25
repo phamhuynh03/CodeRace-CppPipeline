@@ -1,9 +1,3 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
-# Pull Request Triggers (triggers the pipeline whenever a pull request is opened with the specified target branches)
 trigger: none
 
 pr:
@@ -15,15 +9,23 @@ pr:
     - README.md
     - .gitignore
 
-pool:
-  vmImage: ubuntu-latest
+pool: Default
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+steps: 
+- script: |
+    if ! command -v cppcheck &> /dev/null
+    then
+      echo "cppcheck not found, installing..."
+      sudo apt-get update
+      sudo apt-get install -y cppcheck
+    else
+      echo "cppcheck already installed"
+    fi
+  displayName: 'Install cppcheck'
 
 - script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+    cppcheck --version
+    cppcheck --enable=all ./src/track1/*.*
+    cppcheck --enable=all ./src/track2/*.*
+  displayName: 'Run cppcheck'
 
