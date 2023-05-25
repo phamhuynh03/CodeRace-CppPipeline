@@ -84,12 +84,16 @@ steps:
     cd src/track2
     # Making track2_error.log
     > track2_error.log
-
+    
+    # Num for error count
+    error_number=1
+    
     # Search all .c files
     for file in *.c; do
-        echo "Errors in file: $file" >> track2_error.log
+        echo "Errors in file $file (Error $error_number):" >> track2_error.log
         gcc -fsyntax-only "$file" 2>> track2_error.log
         echo >> track2_error.log
+        ((error_number++))
     done
     
     #Print the result
