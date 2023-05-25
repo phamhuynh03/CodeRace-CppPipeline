@@ -21,7 +21,7 @@ pool:
 stages:
 - stage: Check_cppcheck
   jobs:
-  - job: Check
+  - job: CheckStage
     steps:
     - script: |
         if ! command -v cppcheck &> /dev/null
@@ -37,7 +37,7 @@ stages:
 
 - stage: Run_cppcheck
   jobs:
-  - job: run_cppcheck
+  - job: RunStage
     steps:
     - script: |
         cppcheck --version
