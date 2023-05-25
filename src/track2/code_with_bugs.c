@@ -48,7 +48,7 @@ int get_array_element(const unsigned long array[], int array_length, int index, 
  * @param[in]   size    Size of to be allocated buffer in bytes
  * @return Pointer to usable buffer
  */
-void * allocate_buffer(unsigned long size)
+char* allocate_buffer(unsigned long size)
 {
     char* buffer = (char *) malloc(size + sizeof(buffer_header_t));
     unsigned char i;
@@ -74,7 +74,7 @@ void * allocate_buffer(unsigned long size)
  *      0       No error
  *     -1       Buffer couldn't be deallocated
  */
-int deallocate_buffer(void * buffer)
+int deallocate_buffer(char * buffer)
 {
     buffer_header_t * header = (buffer_header_t *)((char*)buffer -  sizeof(buffer_header_t));
     unsigned long current_time = (unsigned long)time(NULL);
