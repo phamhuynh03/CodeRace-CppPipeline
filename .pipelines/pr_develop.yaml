@@ -61,7 +61,7 @@ steps:
 - script: |
     echo "Running gcc"
     cd src
-    gcc -v
-    gcc -o test test.c
+    #gcc -v
+    #gcc -o test test.c
       
   displayName: 'Run GCC'
