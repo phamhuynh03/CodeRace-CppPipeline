@@ -41,6 +41,8 @@ After that we run cpp check on all files in track1 and track2
 
 ![image](https://github.com/vietha712/CodeRace-CppPipeline/assets/113485058/82eb5499-a3ec-4f40-9392-a8e054393144)
 
+### Run GCC for all track
+![image](https://github.com/vietha712/CodeRace-CppPipeline/assets/113485058/9bf05892-abd1-4b49-aa27-ec2a030d13ad)
 
 
   
