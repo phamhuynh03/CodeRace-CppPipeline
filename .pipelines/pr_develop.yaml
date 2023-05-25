@@ -96,3 +96,7 @@ steps:
         echo "There's no error in track 2"
     fi
   displayName: 'Run GCC on track 2'
+  
+- script: |
+    cd ttttt
+  displayName: 'Navigate randomly'  
