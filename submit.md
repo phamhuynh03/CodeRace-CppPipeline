@@ -20,3 +20,5 @@ FILE_NAME:
      in ```void checkRegisterErr(void) ``` function:
 
             call the errorHandling() function
+           phongcuter
+           
