@@ -22,13 +22,12 @@ steps:
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
 
-- script: 
-
 - script: |
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
 
+#Installing GCC
 - script: |
     if ! command -v gcc &> /dev/null
     then
@@ -40,6 +39,7 @@ steps:
     fi
   displayName: 'Install GCC'
 
+#Installing cppcheck
 - script: |
     if ! command -v cppcheck &> /dev/null
     then
@@ -51,8 +51,15 @@ steps:
     fi
   displayName: 'Install cppcheck'
 
+#Run cppcheck
 - script: |
     cppcheck --version
     cppcheck --enable=all ./src/track1/*.*
     cppcheck --enable=all ./src/track2/*.*
   displayName: 'Run cppcheck'
+
+- script: |
+    echo "Running gcc"
+    gcc -v
+    gcc -o test1 ./src/track1/test.c
+  displayName: 'Run GCC'
