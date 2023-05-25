@@ -1,0 +1,98 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+# Pull Request Triggers (triggers the pipeline whenever a pull request is opened with the specified target branches)
+trigger: none
+
+pr:
+  branches:
+    include:
+    - main
+  paths:
+    exclude: # file paths which will not trigger a build
+    - README.md
+    - .gitignore
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+
+#Installing GCC
+- script: |
+    if ! command -v gcc &> /dev/null
+    then
+      echo "GCC not found, installing..."
+      sudo apt update
+      sudo apt install -y gcc
+    else
+      echo "GCC already installed"
+    fi
+  displayName: 'Install GCC'
+
+#Installing cppcheck
+- script: |
+    if ! command -v cppcheck &> /dev/null
+    then
+      echo "cppcheck not found, installing..."
+      sudo apt-get update
+      sudo apt-get install -y cppcheck
+    else
+      echo "cppcheck already installed"
+    fi
+  displayName: 'Install cppcheck'
+
+#Run cppcheck
+- script: |
+    cppcheck --version
+    cppcheck --enable=all ./src/track1/*.*
+    cppcheck --enable=all ./src/track2/*.*
+  displayName: 'Run cppcheck'
+
+#Run GCC for tract 1
+- script: |
+    echo "Running gcc on track 1...."
+    cd src/track1
+    # Making track1_error.log
+    > track1_error.log
+
+    # Search all .c files
+    for file in *.c; do
+        echo "Errors in file: $file" >> track1_error.log
+        gcc -fsyntax-only "$file" 2>> track1_error.log
+        echo >> track1_error.log
+    done
+    
+    #Print the result
+     if [ -s track1_error.log ]; then
+        echo "Bugs found in track1, check track1_error.log for detail:"
+        cat track1_error.log
+    else
+        echo "There's no error in track 1"
+    fi
+  displayName: 'Run GCC on track 1'
+  
+#Run GCC for tract 2
+- script: |
+    echo "Running gcc on track 2...."
+    cd src/track2
+    # Making track2_error.log
+    > track2_error.log
+
+    # Search all .c files
+    for file in *.c; do
+        echo "Errors in file: $file" >> track2_error.log
+        gcc -fsyntax-only "$file" 2>> track2_error.log
+        echo >> track2_error.log
+    done
+    
+    #Print the result
+     if [ -s track2_error.log ]; then
+        echo "Bugs found in track2, check track2_error.log for detail:"
+        cat track2_error.log
+    else
+        echo "There's no error in track 2"
+    fi
+  displayName: 'Run GCC on track 2'
