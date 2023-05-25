@@ -59,14 +59,23 @@ steps:
   displayName: 'Run cppcheck'
 
 - script: |
-    echo "Running gcc"
+    echo "Running gcc on tract 1"
     cd src/track1
-    gcc -o test test.c 2> error.log
+    # Making track1_error.log
+    > track1_error.log
 
-    if [ -s error.log ]; then
-        echo "Bugs found, check error.log for detail"
+    # Search all .c files
+    for file in *.c; do
+        echo "Errors in file: $file" >> track1_error.log
+        gcc -fsyntax-only "$file" 2>> track1_error.log
+        echo >> track1_error.log
+    done
+    
+    #Print the result
+     if [ -s track1_error.log ]; then
+        echo "Bugs found in track1, check track1_error.log for detail:"
+        cat track1_error.log
     else
-        echo "There's no error"
+        echo "There's no error in track 1"
     fi
-      
-  displayName: 'Run GCC'
+  displayName: 'Run GCC on tract 1'
