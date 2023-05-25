@@ -38,6 +38,9 @@ void receiveDataHandling(void)
     switch (l_fmt__u8)
     {
     case someTp_FMT_01:
+    {
+        break;
+    }
     case someTp_FMT_02:
     {
 
@@ -50,6 +53,14 @@ void receiveDataHandling(void)
             mirro_regBufferTx[idx + 2] = mirro_regBufferRx[idx] & 0x55;
         }
         mirro_regBufferTx[idx + 2] = 0xFE;
+        break;
+    }
+    case someTp_FMT_03:
+    {
+        break;
+    }
+    case someTp_FMT_04:
+    {
         break;
     }
     default:
