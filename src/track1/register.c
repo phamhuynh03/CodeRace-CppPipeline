@@ -104,7 +104,7 @@ void rxHandling(void)
     do {
         mirro_regBufferRx[idx] = LIN_Rx3.regBufferRx[idx];
         idx--;
-    }  while (idx>0)
+    }  while (idx>0);
     return;
 }
 
@@ -126,7 +126,7 @@ void someTp (void)
     int idx = 0;
     int calCS = 0;
     /*Calculate checksum*/
-    for (idx = 0; i < (LIN_Rx3.length - 1); i++)
+    for (idx = 0; idx < (LIN_Rx3.length - 1); idx++)
     {
         calCS = calCS + LIN_Rx3.regBufferRx[idx];
     }

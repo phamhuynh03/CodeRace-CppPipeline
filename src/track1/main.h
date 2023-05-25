@@ -14,7 +14,7 @@
  **********************************************************************************************************************
 */
 
-#define NULL 0
+//#define NULL 0
 #define false 0
 #define true !false
 typedef void (*cyclic_ptr)(void);
