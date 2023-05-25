@@ -25,16 +25,14 @@ steps:
 - script: |
     echo Add other tasks to build, test, and deploy your project.
     echo Seehttps://aka.ms/yaml
-displayName: 'Run a multi-line script'
+  displayName: 'Run a multi-line script'
 
 - script: |
     if ! command -v cppcheck &> /dev/null
     then
-        echo "cppcheck not found, installing..."
-        sudo apt-get update
-        sudo apt-get install -y cppcheck
-    else
-        echo "cppcheck already installed"
+      echo "cppcheck not found, installing..."
+Expand All
+	@@ -38,7 +38,7 @@ steps:
     fi
   displayName: 'Install cppcheck'
 
