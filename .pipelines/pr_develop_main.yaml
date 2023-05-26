@@ -1,0 +1,97 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+# Pull Request Triggers (triggers the pipeline whenever a pull request is opened with the specified target branches)
+trigger: none
+
+pr:
+  branches:
+    include:
+    - main
+  paths:
+    exclude: # file paths which will not trigger a build
+    - README.md
+    - .gitignore
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+# cpp check install
+- script: |
+    echo "We use cppcheck for further vulnerabilities"
+    echo "We"
+    if command -v cppcheck >/dev/null 2>&1; then
+      echo "cppcheck is already installed."
+    else
+      echo "cppcheck is not installed. Installing..."
+      sudo apt-get update
+      sudo apt-get install -y cppcheck
+      echo "cppcheck has been installed."
+    fi
+  displayName: 'check cppcheck install'
+
+#run cppcheck
+- script: |
+    echo "cppcheck..."
+    cppcheck .scr/track1/*.c  > cppcheck_Track1_Log.txt
+    cppcheck .src/track2/*.* > cppchheck_Track2_Log.txt
+  displayName: 'cppcheck for both tracks'
+
+#cifuzz install
+-script: |
+    if command -v cifuzz >/dev/null 2>&1; then
+        echo "cifuzz has been installed"
+    else
+        echo "cifuzz hasnt been installed yet. Installing..."
+        sudo apt -y update
+        sudo apt -y upgrade
+        echo "downloading cifuzz"
+        sh -c "$(curl -fsSL https://raw.githubusercontent.com/CodeIntelligenceTesting/cifuzz/main/install.sh)"
+        echo 'export PATH="$PATH:/home/anhtr/.local/bin"' >> ~/.bash_profile
+        sudo apt install cmake clang-11 llvm-11 lcov
+    fi
+  displayName: 'check cifuzz install'
+
+#fuzzing
+-script: |
+    
+#fuzz test
+-script: |
+    cifuzz run my_fuzz_test_1.cpp
+  displayName: 'cifuzz for track 2'
+
+#gcc check install
+- script: |
+    if command -v gcc >/dev/null 2>&1; then
+      echo "GCC is installed"
+    else
+      echo "GCC is not installed yet"
+      echo "Installing GCC..."
+      sudo apt install gcc
+      sudo apt update -y
+      sudo apt upgrade -y
+    fi
+  displayName: 'GCC check install'
+
+#gcc complie 
+- script: |
+    echo "Try to compile with gcc"
+    gcc ./src/track1/test.c -o test.out > compileGCCError_Track1.txt
+    if [ $? -eq 0 ]; then
+      echo "Compile track 1 successful."
+    else
+      echo "Compile track 1 failed. Check the file compileGCCError_Track1.txt for more information".
+      cat compileGCCError_Track1.txt
+    fi
+    g++ ./src/track2/main.cpp -o main.out > compileGCCError_Track2.txt
+    if [ $? -eq 0 ]; then
+      echo "Compile track 2 successful."
+    else
+      echo "Compile track 2 failed. Check the file compileGCCError_Track2.txt for more information".
+      compileGCCError_Track2.txt
+    fi
+  displayName: 'GCC compile'
+
