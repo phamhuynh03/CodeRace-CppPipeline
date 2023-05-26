@@ -52,8 +52,11 @@ FILE_NAME:
       in ``` void someTp(void) ``` function:
  - test.c:
       in ``` void run_startup(void) ``` function:
+      
       in ``` void run_cyclic(void) ``` function:
+      
       in ``` int get_array_element(const char *array, int array_length, int index) ``` function:
+      
              change the condition of ifstatement: index > array_length to index >= arraylength
              bring the return 0 statement under the printf function.
              ``` printf("Out of bound access"); ```
@@ -62,8 +65,10 @@ FILE_NAME:
              
              
       in ``` void deallocate_buffer(char *buffer)  ``` function:  
+      
              change the return type of the function into char*
              change the return statement: ``` return buffer; ```
+	     
       in ``` int main(void) ``` function:
              
             
