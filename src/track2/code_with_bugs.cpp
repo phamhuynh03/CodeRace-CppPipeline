@@ -6,8 +6,6 @@
 <<<<<<< HEAD
 #include <string.h>
 =======
-#include <cstring>
->>>>>>> 492b906104cc8db99ca5eba5a851eddeb5552ca4
 
 #define TIMEOUT 600UL
 #define MIN_LENGTH_BYTES 6UL
@@ -142,12 +140,7 @@ int calculate_fingerprint(unsigned long uid, unsigned long counter, const char *
 
     return 0;
 }
-<<<<<<< HEAD
-void exploreMe(int a, int b, std::string c)
-=======
-
 void exploreMe(int a, int b, string c)
->>>>>>> 492b906104cc8db99ca5eba5a851eddeb5552ca4
 {
     printf("a: %d; b: %d; c: %s\n", a, b, c.c_str());
 
@@ -158,23 +151,17 @@ void exploreMe(int a, int b, string c)
             if (b - a < 100000)
             {
                 // Trigger the undefined behavior sanitizer
-<<<<<<< HEAD
                 long long n = 23;
-=======
+
                 int n = 23;
->>>>>>> 492b906104cc8db99ca5eba5a851eddeb5552ca4
                 n <<= 32;
                 if (c == "FUZZING")
                 {
                     // Trigger a heap buffer overflow
-<<<<<<< HEAD
+
                     char *s = (char *)malloc(12);
                     strcpy(s, "too long");
                     free(s);
-=======
-                    char *s = (char *)malloc(1);
-                    strcpy(s, "too long");
->>>>>>> 492b906104cc8db99ca5eba5a851eddeb5552ca4
                 }
             }
         }
