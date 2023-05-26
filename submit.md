@@ -81,5 +81,29 @@ FILE_NAME:
              change the return statement: ``` return allocate_buffer(buffer_size);; ```
 	     
       in ``` int main(void) ``` function:
+## track 2
+FILE_NAME:
+ - code_with_bugs.cpp:
+    line 32: replace condition if ```index >= array_length ```
+    in ```void * allocate_buffer(unsigned long size) ``` function:
+
+            change the return type of the funtion into char*
+	    change type of variable i into unsigned long
+    in ```int deallocate_buffer(void * buffer) ``` function:
+
+            change the type of the parameter buffer into char*
+	    change type of variable i into unsigned long
+    in ```int calculate_fingerprint(unsigned long uid, unsigned long counter, const char *text, unsigned int* output) ``` function:
+
+            change the ifstatement conditon : text == (*void)0 to text == NULL
+	    bring declare variable statement workspace under ifstatement
+	    ``` if (text == NULL) ```
+	    ``` char* workspace = (char*)malloc(sizeof(uid) + sizeof(counter) + strlen(text) + 1); ```
+    in ```void exploreMe(int a, int b, string c) ``` function:
+
+            change the tyoe of the variable n into long long
+	    change the size of s in malloc statements to 12
+	    bring the free(s) statements under strcpy(s,"too long");
+ - register.c 
              
             

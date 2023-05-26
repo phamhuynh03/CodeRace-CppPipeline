@@ -15,3 +15,4 @@ unsigned int crc32(const unsigned char *message) {
    }
    return ~crc;
 }
+   

@@ -2,8 +2,9 @@
 #include <stdlib.h>
 #include <time.h>
 #include "crc32.h"
-#include <string> // code c dont need this
+#include <string>
 #include <string.h>
+
 #define TIMEOUT 600UL
 #define MIN_LENGTH_BYTES 6UL
 
@@ -51,7 +52,7 @@ int get_array_element(const unsigned long array[], int array_length, int index, 
 char* allocate_buffer(unsigned long size)
 {
     char* buffer = (char *) malloc(size + sizeof(buffer_header_t));
-    unsigned char i;
+    unsigned long i;
 
     buffer_header_t * header = (buffer_header_t *)buffer;
     header->size = size;
@@ -87,7 +88,7 @@ int deallocate_buffer(char * buffer)
     free(header); // should bring this under
 
     /* Always clear allocated buffer to prevent sensitive data leakage */
-    unsigned char i;
+    unsigned long i;
     for (i = 0; i < header->size; i++)
     {
         ((char*)(buffer))[(unsigned long)i] = 0;
@@ -120,7 +121,7 @@ int calculate_fingerprint(unsigned long uid, unsigned long counter, const char *
     }
     char* workspace = (char*)malloc(sizeof(uid) + sizeof(counter) + strlen(text) + 1); // plus 1 for null character
 
-    if (strlen(text) < MIN_LENGTH_BYTES)
+    if ((strlen(text)/8) < MIN_LENGTH_BYTES)
     {
         free(workspace);
         return -2;
@@ -153,8 +154,8 @@ void exploreMe(int a, int b, std::string c)
                 if (c == "FUZZING")
                 {
                     // Trigger a heap buffer overflow
-                    char *s = (char *)malloc(1); // buffer overflow
-                    strcpy(s, "too long"); // use strncpy
+                    char *s = (char *)malloc(12);
+                    strcpy(s, "too long");
                     free(s);
                 }
             }
