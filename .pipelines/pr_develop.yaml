@@ -68,8 +68,8 @@ steps:
     
     # Search all .c files
     for file in *.c; do
-        echo "(Error $error_number) Errors in file $file1 :" >> track1_error.log
-        gcc -fsyntax-only "$file1" 2>> track1_error.log
+        echo "(Error $error_number) Errors in file $file :" >> track1_error.log
+        gcc -fsyntax-only "$file" 2>> track1_error.log
         echo >> track1_error.log
         ((error_number++))
     done
