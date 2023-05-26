@@ -35,7 +35,7 @@ you don't need to wait for the pipeline to test your tool or code since the pipe
 
 ## Let's start
 * Your C/C++ program shall be placed in src directory.
-* Create your team branch from main branch. Name the branch with your team name
+* Create your team branch from main branch. Name the branch with your team name.
 * The pipeline shall be created once you open the Pull Request.
 * .pipelines/pr_develop.yaml contains stages in the pipeline.
 
