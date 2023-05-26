@@ -96,6 +96,9 @@ Here is the result:
 - So we cannot get the best result for fuzzing testing
 - The program was stopped 
   
+ # Final result: (Running the pipeline)
+![image001](https://github.com/vietha712/CodeRace-CppPipeline/assets/113485058/f4e4970d-3185-4ebe-ba92-1859d83e3698)
+
 
 
 
