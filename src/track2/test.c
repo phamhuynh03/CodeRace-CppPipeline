@@ -10,8 +10,10 @@ int get_array_element(const char *array, int array_length, int index)
 {
     if (index > array_length)
     {
-        return 0;
+        // Fixed 
+        // Bao loi
         printf("Out of bound access");
+        return 0;
     }
 
     return array[index];

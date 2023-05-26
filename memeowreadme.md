@@ -37,3 +37,30 @@ Cppcheck on Azure pipeline output.
 * Add step install cppcheck
 * Add step run cppcheck
 
+## Stage 4: fix vulnerabilities 
+track1/register.c
+
+* Eemove "int idx": line 37
+* add "int" to the loop: line 46
+* Edit "idx" to "dataLen": line 51
+
+track1/test.c
+
+* Move "free(buffer - HEADER_SIZE)" to line below 100
+* Swap line 61 and line 62
+
+track2/code_with_bugs.c
+
+* Move line 116 to line 127 (below 2 conditional statements)
+
+track2/crc32.c
+
+* Move "unsigned int byte" and "unsigned int mask" to the line below line 7
+
+track2/test.c
+
+* Move line 45 to the line below line 53
+* Swap line 13 and line 14
+* Use strcmp(c, "FUZZING") == 0 instead of c == "FUZZING": line 95
+* Edit variable type of "n" from "int" to "long long": line 93
+* 
