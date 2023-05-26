@@ -1,5 +1,6 @@
 # TEAM NAME: BETTER LUCK
-
+## pipeline
+       We have edit some of pipeline, including cppcheck, cifuzz and compile with gcc.
 ## CODE CHANGE
 ## track 1
 FILE_NAME:
