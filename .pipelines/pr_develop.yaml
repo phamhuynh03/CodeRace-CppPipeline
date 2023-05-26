@@ -9,7 +9,8 @@ pr:
     - README.md
     - .gitignore
 
-pool: Default
+pool: 
+   vmImage: ubuntu-latest
 
 steps: 
 - script: |
