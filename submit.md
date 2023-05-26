@@ -82,6 +82,7 @@ FILE_NAME:
              change the return statement: ``` return allocate_buffer(buffer_size);; ```
 	     
       in ``` int main(void) ``` function:
+      	     while(true){} is a infinite loop
 ## track 2
 FILE_NAME:
  - code_with_bugs.cpp:
