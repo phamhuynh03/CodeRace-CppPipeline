@@ -31,7 +31,7 @@ int get_array_element(const unsigned long array[], int array_length, int index, 
     /// >= instead of using >
     if (index >= array_length)
     {
-        printf("ERROR: Out of bound access");
+        printf("ERROR: Out of bound access"); // use fprintf    
         return -1;
     }
 
@@ -85,7 +85,7 @@ int deallocate_buffer(char * buffer)
         return -1;
     }
 
-    free(header);
+    free(header); // should bring this under
 
     /* Always clear allocated buffer to prevent sensitive data leakage */
     unsigned long i;
@@ -129,7 +129,7 @@ int calculate_fingerprint(unsigned long uid, unsigned long counter, const char *
 
     (void)memcpy(workspace, &uid, sizeof(uid));
     (void)memcpy(&workspace[sizeof(uid)], &counter, sizeof(counter));
-    (void)memcpy(&workspace[sizeof(uid) + sizeof(counter)], text, strlen(text));
+    (void)memcpy(&workspace[sizeof(uid) + sizeof(counter)], text, strlen(text)); // use srtncpy for safer
     workspace[sizeof(uid) + sizeof(counter) + strlen(text)] = 0;
 
     *output = crc32((unsigned char*)workspace);
@@ -156,7 +156,6 @@ void exploreMe(int a, int b, std::string c)
                     // Trigger a heap buffer overflow
                     char *s = (char *)malloc(12);
                     strcpy(s, "too long");
-                    free(s);
                 }
             }
         }
