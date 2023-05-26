@@ -32,3 +32,8 @@ Cppcheck
 
 Cppcheck on Azure pipeline output.
 ![cppcheck-azure](./img/cppcheck-azure.png)
+
+## Stage 3: extend pipeline file
+* Add step install cppcheck
+* Add step run cppcheck
+
