@@ -60,7 +60,7 @@ FILE_NAME:
              change the condition of ifstatement: index > array_length to index >= arraylength
              bring the return 0 statement under the printf function.
              ``` printf("Out of bound access"); ```
-	     ``` return 0; ```
+	    	``` return 0; ```
       in ``` char *allocate_buffer(int size) ``` function:
              
              
