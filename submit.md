@@ -94,6 +94,8 @@ FILE_NAME:
 
             change the type of the parameter buffer into char*
 	    change type of variable i into unsigned long
+	    move the command ```free(header)``` to the end of the function right above ``` return 0; ``` statement
+	    
     in ```int calculate_fingerprint(unsigned long uid, unsigned long counter, const char *text, unsigned int* output) ``` function:
 
             change the ifstatement conditon : text == (*void)0 to text == NULL
