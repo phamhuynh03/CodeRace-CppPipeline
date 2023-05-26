@@ -6,7 +6,7 @@ FILE_NAME:
  - main.h
     line 17: delete ```#define NULL 0   ```
  - register.c
-    initializing for all global function: 
+    initializing for all global variables: 
 
         int baseAddr = 0; 
         int dataLen = 0; 
@@ -26,7 +26,7 @@ FILE_NAME:
             add break to case someTp_FMT_01
             in case someTp_FMT_02, decrease the limit of the for loop:
             ``` for (idx = 2; idx < dataLen - 2; idx++) ```
-            fix syntax case default to default
+            change syntax case default to default
      
      in ```void errorHandling(void) ``` function:
 
@@ -50,6 +50,20 @@ FILE_NAME:
                 change the stop condition: idx > 0 to idx >= 0
       
       in ``` void someTp(void) ``` function:
+ - test.c:
+      in ``` void run_startup(void) ``` function:
+      in ``` void run_cyclic(void) ``` function:
+      in ``` int get_array_element(const char *array, int array_length, int index) ``` function:
+             change the condition of ifstatement: index > array_length to index >= arraylength
+             bring the return 0 statement under the printf function.
+             ``` printf("Out of bound access"); ```
+		           ``` return 0; ```
+      in ``` char *allocate_buffer(int size) ``` function:
              
+             
+      in ``` void deallocate_buffer(char *buffer)  ``` function:  
+             change the return type of the function into char*
+             change the return statement: ``` return buffer; ```
+      in ``` int main(void) ``` function:
              
             
