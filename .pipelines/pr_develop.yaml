@@ -22,6 +22,7 @@ steps:
 
 #Installing GCC
 - script: |
+    echo: "Checking GCC"
     if ! command -v gcc &> /dev/null
     then
       echo "GCC not found, installing..."
@@ -30,10 +31,9 @@ steps:
     else
       echo "GCC already installed"
     fi
-  displayName: 'Install GCC'
 
 #Installing cppcheck
-- script: |
+    echo: "Checking cppcheck"
     if ! command -v cppcheck &> /dev/null
     then
       echo "cppcheck not found, installing..."
@@ -42,10 +42,9 @@ steps:
     else
       echo "cppcheck already installed"
     fi
-  displayName: 'Install cppcheck'
   
 #Installing AFL
-- script: |
+    echo: "Checking American fuzzing loop"
     if ! command -v afl-fuzz &> /dev/null
     then
       echo "AFL not found, installing..."
@@ -54,7 +53,7 @@ steps:
     else
       echo "AFL already installed"
     fi
-  displayName: 'Install American fuzzing loop'
+  displayName: 'Installing fundamentals software'
 
 #Run GCC for tract 1
 - script: |
