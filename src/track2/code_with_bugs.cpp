@@ -156,6 +156,7 @@ void exploreMe(int a, int b, std::string c)
                     // Trigger a heap buffer overflow
                     char *s = (char *)malloc(12);
                     strcpy(s, "too long");
+                    free(s);
                 }
             }
         }
