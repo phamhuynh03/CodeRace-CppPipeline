@@ -19,11 +19,97 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
 
+#Installing GCC
 - script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+    if ! command -v gcc &> /dev/null
+    then
+      echo "GCC not found, installing..."
+      sudo apt update
+      sudo apt install -y gcc
+    else
+      echo "GCC already installed"
+    fi
+  displayName: 'Install GCC'
 
+#Installing cppcheck
+- script: |
+    if ! command -v cppcheck &> /dev/null
+    then
+      echo "cppcheck not found, installing..."
+      sudo apt-get update
+      sudo apt-get install -y cppcheck
+    else
+      echo "cppcheck already installed"
+    fi
+  displayName: 'Install cppcheck'
+  
+#Installing AFL
+- script: |
+    if ! command -v afl-fuzz &> /dev/null
+    then
+      echo "AFL not found, installing..."
+      sudo apt-get update
+      sudo apt-get install -y afl
+    else
+      echo "AFL already installed"
+    fi
+  displayName: 'Install American fuzzing loop'
+
+#Run GCC for tract 1
+- script: |
+    echo "Running gcc on track 1...."
+    cd src/track1
+    # Making track1_error.log
+    > track1_error.log
+    
+    # Num for error count
+    error_number=1
+    
+    # Search all .c files
+    for file in *.c; do
+        echo "(Error $error_number) Errors in file $file :" >> track1_error.log
+        gcc -fsyntax-only "$file" 2>> track1_error.log
+        echo >> track1_error.log
+        ((error_number++))
+    done
+    
+    #Print the result
+     if [ -s track1_error.log ]; then
+        echo "Bugs found in track1, check track1_error.log for detail:"
+        cat track1_error.log
+    else
+        echo "There's no error in track 1"
+    fi
+  displayName: 'Run GCC on track 1'
+  
+#Run AFL on track1
+- script: |
+    #dir for source file and seed
+    source_dir="src/track1"
+    seed_dir="seed"
+    
+    #dir for output
+    output_dir="fuzz_output"
+    mkdir -p "$output_dir"
+    
+    #log
+    log_file="Track1_fuzz_log.txt"
+    > "$log_file"
+    
+    # Run AFL
+    afl-fuzz -i "$seed_dir" -o "$output_dir" -- "$source_dir" 2>&1 | tee -a "$log_file"
+    
+    # Print the result
+    echo "Fuzzing complete, see more on $log_file"
+    cat "$log_file"
+  displayName: 'Run AFL on track 1' 
+  
+#Run cppcheck
+- script: |
+    cppcheck --version
+    cppcheck --enable=all ./src/track1/*.*
+    cppcheck --enable=all ./src/track2/*.*
+  displayName: 'Run cppcheck for both track'
+  
+  
