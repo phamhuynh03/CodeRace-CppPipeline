@@ -22,7 +22,6 @@ steps:
 # cpp check install
 - script: |
     echo "We use cppcheck for further vulnerabilities"
-    echo "We"
     if command -v cppcheck >/dev/null 2>&1; then
       echo "cppcheck is already installed."
     else
@@ -38,6 +37,7 @@ steps:
     echo "cppcheck..."
     cppcheck .scr/track1/*.c  > cppcheck_Track1_Log.txt
     cppcheck .src/track2/*.* > cppchheck_Track2_Log.txt
+    echo "check 2 files cppcheck_Track1_Log.txt and cppcheck_Track2_Log.txt for more information"
   displayName: 'cppcheck for both tracks'
 
 #cifuzz install
@@ -55,11 +55,11 @@ steps:
     fi
   displayName: 'check cifuzz install'
 
-#fuzzing
--script: |
-    
+   
 #fuzz test
 -script: |
+    cd src/track2/
+    cifuzz init
     cifuzz run my_fuzz_test_1.cpp
   displayName: 'cifuzz for track 2'
 
