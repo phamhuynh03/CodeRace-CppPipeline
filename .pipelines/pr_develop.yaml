@@ -75,7 +75,7 @@ steps:
     
     # Search all .c files
     for file in *.c; do
-        echo "Errors in file $file (Error $error_number):" >> track1_error.log
+        echo "(Error $error_number) Errors in file $file :" >> track1_error.log
         gcc -fsyntax-only "$file" 2>> track1_error.log
         echo >> track1_error.log
         ((error_number++))
@@ -102,7 +102,7 @@ steps:
     
     # Search all .c files
     for file in *.c; do
-        echo "Errors in file $file (Error $error_number):" >> track2_error.log
+        echo "(Error $error_number) Errors in file $file :" >> track2_error.log
         gcc -fsyntax-only "$file" 2>> track2_error.log
         echo >> track2_error.log
         ((error_number++))
