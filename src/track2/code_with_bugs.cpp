@@ -3,9 +3,8 @@
 #include <time.h>
 #include "crc32.h"
 #include <string>
-<<<<<<< HEAD
 #include <string.h>
-=======
+
 
 #define TIMEOUT 600UL
 #define MIN_LENGTH_BYTES 6UL
