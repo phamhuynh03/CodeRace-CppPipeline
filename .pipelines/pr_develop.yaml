@@ -67,7 +67,7 @@ steps:
     error_number=1
     
     # Search all .c files
-    for file1 in *.c; do
+    for file in *.c; do
         echo "(Error $error_number) Errors in file $file1 :" >> track1_error.log
         gcc -fsyntax-only "$file1" 2>> track1_error.log
         echo >> track1_error.log
@@ -94,9 +94,9 @@ steps:
     error_number=1
     
     # Search all .c files
-    for file2 in *.c; do
-        echo "(Error $error_number) Errors in file $file2 :" >> track2_error.log
-        gcc -fsyntax-only "$file2" 2>> track2_error.log
+    for file in *.cpp; do
+        echo "(Error $error_number) Errors in file $file :" >> track2_error.log
+        gcc -fsyntax-only "$file" 2>> track2_error.log
         echo >> track2_error.log
         ((error_number++))
     done
@@ -154,10 +154,11 @@ steps:
     cat "$log_file"
   displayName: 'Run AFL on track 2'
   
-  #Run cppcheck
+#Run cppcheck
 - script: |
     cppcheck --version
     cppcheck --enable=all ./src/track1/*.*
     cppcheck --enable=all ./src/track2/*.*
-  displayName: 'Run cppcheck'
-
+  displayName: 'Run cppcheck for both track'
+  
+  
