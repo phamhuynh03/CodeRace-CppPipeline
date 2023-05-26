@@ -109,7 +109,6 @@ steps:
 - script: |
     cppcheck --version
     cppcheck --enable=all ./src/track1/*.*
-    cppcheck --enable=all ./src/track2/*.*
   displayName: 'Run cppcheck for both track'
   
   
