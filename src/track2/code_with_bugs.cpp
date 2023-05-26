@@ -85,15 +85,13 @@ int deallocate_buffer(char * buffer)
         return -1;
     }
 
-    free(header); // should bring this under
-
     /* Always clear allocated buffer to prevent sensitive data leakage */
     unsigned long i;
     for (i = 0; i < header->size; i++)
     {
         ((char*)(buffer))[(unsigned long)i] = 0;
     }
-
+    free(header); // should bring this under
     return 0;
 }
 
